@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
 
 export default function Home() {
   const supabase = createClient(); // This is client-side for now
@@ -19,11 +20,12 @@ export default function Home() {
       </p>
 
       <div className="mt-10 flex flex-col sm:flex-row gap-4">
-        <Button size="lg" className="text-base">
-          Get Started
+        <Button asChild size="lg" className="text-base">
+          <Link href="/signin">Get Started</Link>
         </Button>
-        <Button variant="outline" size="lg" className="text-base">
-          View Demo
+
+        <Button asChild variant="outline" size="lg" className="text-base">
+          <Link href="/signin">Sign In</Link>
         </Button>
       </div>
       <p className="mt-4 text-sm text-gray-500">

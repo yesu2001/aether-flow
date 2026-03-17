@@ -1,9 +1,6 @@
 import { getCurrentUser } from "@/lib/supabase/auth";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -13,41 +10,51 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="container mx-auto py-10 px-6">
+    <div className="container mx-auto py-8 px-6">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">My Kanban Board</h1>
-        <p className="text-muted-foreground">Welcome, {user.email}</p>
+        <h1 className="text-3xl font-bold tracking-tight">AetherFlow Kanban</h1>
+        <p className="text-muted-foreground">Logged in as {user.email}</p>
       </div>
 
-      {/* Task Creation Form - will be made interactive in next step */}
-      <Card className="max-w-md mb-10">
-        <CardHeader>
-          <CardTitle>Create New Task</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form className="space-y-4">
-            <div>
-              <Label htmlFor="title">Task Title</Label>
-              <Input id="title" placeholder="Implement login UI" />
-            </div>
-            <Button type="submit" className="w-full">
-              Create Task
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* To Do Column */}
+        <Card className="h-fit">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">📋 To Do</CardTitle>
+          </CardHeader>
+          <CardContent className="min-h-[500px] p-4">
+            <p className="text-center text-muted-foreground py-12">
+              No tasks yet
+            </p>
+          </CardContent>
+        </Card>
 
-      {/* Placeholder for Kanban Board */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Kanban Board</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-center py-12">
-            Kanban board coming in next step with drag & drop + realtime
-          </p>
-        </CardContent>
-      </Card>
+        {/* In Progress Column */}
+        <Card className="h-fit">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              🚧 In Progress
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="min-h-[500px] p-4">
+            <p className="text-center text-muted-foreground py-12">
+              No tasks yet
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Done Column */}
+        <Card className="h-fit">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">✅ Done</CardTitle>
+          </CardHeader>
+          <CardContent className="min-h-[500px] p-4">
+            <p className="text-center text-muted-foreground py-12">
+              No tasks yet
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

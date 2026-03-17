@@ -1,3 +1,4 @@
+import { signOut } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getCurrentUser } from "@/lib/supabase/auth";
@@ -26,9 +27,11 @@ export async function Navbar() {
                 <Button variant="ghost" size="sm">
                   Teams
                 </Button>
-                <Button variant="outline" size="sm">
-                  Logout
-                </Button>
+                <form action={signOut}>
+                  <Button type="submit" variant="outline" size="sm">
+                    Logout
+                  </Button>
+                </form>
               </>
             ) : (
               <>

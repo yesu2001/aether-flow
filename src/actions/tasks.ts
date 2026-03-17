@@ -33,18 +33,17 @@ export async function createTask(formData: FormData) {
       .single();
 
     if (teamError) return { error: teamError.message };
-    if (!newTeam) return { error: "Failed to create team" }; // ← add this
+    if (!newTeam) return { error: "Failed to create team" };
 
     team = newTeam;
   }
 
-  // TypeScript now knows: if we reach this line, team is not null
   const { error } = await supabase.from("tasks").insert({
     title: title.trim(),
     description,
     status: "todo",
     priority: "medium",
-    team_id: team.id, // ✅ safe
+    team_id: team!.id, // ✅ safe
     assignee_id: user.id,
   });
 
@@ -52,4 +51,26 @@ export async function createTask(formData: FormData) {
 
   revalidatePath("/dashboard");
   return { success: "Task created successfully!" };
+}
+
+// Update task Status
+export async function updateTaskStatus(
+  taskId: string,
+  newStatus: "todo" | "in_progress" | "done",
+) {
+  "use server";
+
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("tasks")
+    .update({ status: newStatus, updated_at: new Date().toISOString() })
+    .eq("id", taskId);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath("/dashboard");
+  return { success: true };
 }

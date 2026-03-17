@@ -3,6 +3,7 @@ import { Inter, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/layout/Navbar";
+import { QueryProvider } from "@/components/providers/QueryProvider";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -32,7 +33,9 @@ export default function RootLayout({
     >
       <body className={`${inter.variable} font-sans antialiased bg-gray-50`}>
         <Navbar />
-        {children}
+        <QueryProvider>
+          <main className="flex-1">{children}</main>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createTask, updateTaskStatus } from "@/actions/tasks";
+import { createTask, updateTaskStatus, suggestSubtasks } from "@/actions/tasks";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,11 @@ const columns = [
 
 export default function DashboardPage() {
   const [title, setTitle] = useState("");
+  const [aiLoadingTaskId, setAiLoadingTaskId] = useState<string | null>(null);
+  const [aiSuggestions, setAiSuggestions] = useState<Record<string, string>>(
+    {},
+  );
+
   const queryClient = useQueryClient();
   const supabase = createClient();
 
@@ -103,6 +108,21 @@ export default function DashboardPage() {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
+
+  const handleAISuggest = async (taskId: string, taskTitle: string) => {
+    setAiLoadingTaskId(taskId);
+    setAiSuggestions((prev) => ({ ...prev, [taskId]: "" }));
+
+    const stream = await suggestSubtasks(taskTitle);
+
+    let fullText = "";
+    for await (const chunk of stream) {
+      fullText += chunk;
+      setAiSuggestions((prev) => ({ ...prev, [taskId]: fullText }));
+    }
+
+    setAiLoadingTaskId(null);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -213,6 +233,30 @@ export default function DashboardPage() {
                       <p className="text-sm text-gray-500 mt-2 line-clamp-2">
                         {task.description}
                       </p>
+                    )}
+                    {/* AI Button */}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="mt-3 text-xs opacity-70 group-hover:opacity-100"
+                      onClick={() => handleAISuggest(task.id, task.title)}
+                      disabled={aiLoadingTaskId === task.id}
+                    >
+                      {aiLoadingTaskId === task.id
+                        ? "Thinking..."
+                        : "✨ AI Suggest Subtasks"}
+                    </Button>
+
+                    {/* AI Suggestions */}
+                    {aiSuggestions[task.id] && (
+                      <div className="mt-3 p-3 bg-blue-50 rounded-lg text-sm border">
+                        <p className="font-medium text-blue-700 mb-1">
+                          Suggested Subtasks:
+                        </p>
+                        <pre className="whitespace-pre-wrap text-xs">
+                          {aiSuggestions[task.id]}
+                        </pre>
+                      </div>
                     )}
                   </motion.div>
                 ))

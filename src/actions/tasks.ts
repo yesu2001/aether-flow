@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { streamText } from "ai";
+import { groq } from "@ai-sdk/groq";
 
 export async function createTask(formData: FormData) {
   const supabase = await createClient();
@@ -73,4 +75,17 @@ export async function updateTaskStatus(
 
   revalidatePath("/dashboard");
   return { success: true };
+}
+
+// Suggest subtasks using ai
+export async function suggestSubtasks(taskTitle: string) {
+  "use server";
+
+  const { textStream } = streamText({
+    model: groq("llama-3.3-70b-versatile"),
+    prompt: `You are a helpful project manager. For the task "${taskTitle}", suggest 3-4 clear, actionable subtasks. Return only a numbered list, no extra text.`,
+    maxOutputTokens: 300,
+  });
+
+  return textStream;
 }

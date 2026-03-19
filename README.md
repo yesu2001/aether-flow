@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AetherFlow – AI-Powered Team Task Manager
 
-## Getting Started
+Modern realtime Kanban board with AI task suggestions.
 
-First, run the development server:
+![Hero](public/screenshot-hero.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack (2026 standards)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js 16 (App Router, Server Components/Actions, Partial Prerendering)
+- TypeScript (strict mode, generics, inference)
+- Tailwind CSS + shadcn/ui + Radix UI
+- TanStack Query v5 (optimistic updates, mutations, caching)
+- Supabase (auth, Postgres, realtime, RLS)
+- Vercel AI SDK + Groq (streaming AI subtasks)
+- Framer Motion (drag & drop + animations)
+- Deployed on Vercel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Passwordless magic link auth
+- Auto team creation
+- Realtime collaborative Kanban (3 columns)
+- Drag & drop with optimistic UI
+- Groq-powered AI subtasks suggestions (streaming)
+- Accessible & performant basics
 
-## Learn More
+## Live Demo
 
-To learn more about Next.js, take a look at the following resources:
+https://aetherflow.vercel.app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Landing page
+2. Sign-in with magic link
+3. Dashboard + Kanban board
+4. Dragging a task (animation)
+5. AI suggestions streaming
+6. Realtime update in two tabs
 
-## Deploy on Vercel
+## Product Thinking (IBM AI Product Manager approach)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- MVP: One team per user → low friction onboarding
+- Core loop: Create task → drag to progress → AI help → complete
+- Success metric: >40% tasks moved to Done within 7 days
+- Prioritization: MoSCoW applied throughout
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built as both Product Associate & Full-Stack Developer.

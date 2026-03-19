@@ -28,9 +28,6 @@ export default function Home() {
           <Link href="/signin">Sign In</Link>
         </Button>
       </div>
-      <p className="mt-4 text-sm text-gray-500">
-        Supabase connected (check console)
-      </p>
     </main>
   );
 }

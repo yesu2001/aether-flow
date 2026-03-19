@@ -2,7 +2,7 @@
 
 Modern realtime Kanban board with AI task suggestions.
 
-![Hero](public/screenshot-hero.png)
+<!-- ![Hero](public/screenshot-hero.png) -->
 
 ## Tech Stack (2026 standards)
 
@@ -24,9 +24,9 @@ Modern realtime Kanban board with AI task suggestions.
 - Groq-powered AI subtasks suggestions (streaming)
 - Accessible & performant basics
 
-## Live Demo
+<!-- ## Live Demo
 
-https://aetherflow.vercel.app
+https://aetherflow.vercel.app -->
 
 ## Screenshots
 

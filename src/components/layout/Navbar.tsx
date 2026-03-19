@@ -1,13 +1,12 @@
 import { signOut } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { getCurrentUser } from "@/lib/supabase/auth";
 import Link from "next/link";
 
 export async function Navbar() {
   const user = await getCurrentUser();
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 px-4 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container flex h-14 items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">

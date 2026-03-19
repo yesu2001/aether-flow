@@ -17,7 +17,14 @@ export const metadata: Metadata = {
   title: "AetherFlow – AI-Powered Team Task Manager",
   description:
     "Collaborative task management with realtime updates and AI assistance. Built with Next.js 16, Supabase, and Groq.",
-  metadataBase: new URL("https://aetherflow.vercel.app"), // change later to your real domain
+  openGraph: {
+    title: "AetherFlow",
+    description:
+      "Collaborative task management with realtime updates and AI assistance. Built with Next.js 16, Supabase, and Groq.",
+    url: "https://aetherflow.vercel.app",
+    siteName: "AetherFlow",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({

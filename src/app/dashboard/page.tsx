@@ -217,9 +217,12 @@ export default function DashboardPage() {
                   Drop tasks here
                 </p>
               ) : (
-                groupedTasks[column.id].map((task) => (
+                groupedTasks[column.id].map((task, index) => (
                   <motion.div
                     key={task.id}
+                    aria-label={`Task: ${task.title}, status: ${task.status}, drag to change column`}
+                    role="listitem"
+                    tabIndex={index}
                     draggable
                     onDragStart={(e) => handleDragStart(e as any, task)}
                     whileDrag={{
